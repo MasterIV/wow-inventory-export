@@ -7,8 +7,23 @@ const handlebars = require('handlebars');
 const raw = fs.readFileSync("ArkInventory.lua").toString();
 
 const category_alias_de = {
-    "herbs": "Kräuter",
-    "cloth": "Stoff",
+    "bags": "Taschen",
+    "cloth": "Material: Stoff",
+    "enchanting": "Material: Verzaubern",
+    "herbs": "Material: Kräuter",
+    "jewels": "Material: Juwelen",
+    "leather": "Material: Leder",
+    "meat": "Material: Fleisch",
+    "metal": "Material: Metalle & Steine",
+    "patterns_alchemy": "Rezepte: Alchemie",
+    "patterns_cooking": "Rezepte: Kochkunst",
+    "patterns_enchanting": "Rezepte: Verzauberkunst",
+    "patterns_engineering": "Rezepte: Ingenieurskunst",
+    "patterns_jewelcrafting": "Rezepte: Juwelenschleifen",
+    "patterns_leatherworking": "Rezepte: Lederverarbeitung",
+    "patterns_smithing": "Rezepte: Schmiedekunst",
+    "patterns_tailoring": "Rezepte: Schneiderei",
+    "items": "Sonstiges",
 }
 
 const category_alias_en = {
@@ -94,9 +109,11 @@ const chars = Object.entries(charItems)
             .filter(i => i.items.length > 0),
     })).filter(e => e.data.length > 0);
 
-const charsDE = chars.map(c => ({
+const charsDE = chars.map((c, index) => ({
     name: c.name,
+    index: index,
     data: c.data.map(d => ({
+        id: d.category,
         category: category_alias_de[d.category] ?? d.category,
         items: d.items,
     })).sort((a, b) => a.category.localeCompare(b.category))
@@ -106,9 +123,11 @@ const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString())
 fs.writeFileSync("output.de.html", tplDE({ chars: charsDE }));
 
 
-const charsEN = chars.map(c => ({
+const charsEN = chars.map((c, index) => ({
     name: c.name,
+    index: index,
     data: c.data.map(d => ({
+        id: d.category,
         category: category_alias_en[d.category] ?? d.category,
         items: d.items,
     })).sort((a, b) => a.category.localeCompare(b.category))
