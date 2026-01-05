@@ -6,6 +6,16 @@ const handlebars = require('handlebars');
 // example: E:\Battle.net\World of Warcraft\_classic_era_\WTF\Account\accountname\SavedVariables\ArkInventory.lua
 const raw = fs.readFileSync("ArkInventory.lua").toString();
 
+const category_alias_de = {
+    "herbs": "Kräuter",
+    "cloth": "Stoff",
+}
+
+const category_alias_en = {
+    "herbs": "Herbs",
+    "cloth": "Cloth",
+}
+
 const categories = [];
 fs.readdirSync("categories").forEach(f => {
     categories.push({
@@ -84,10 +94,27 @@ const chars = Object.entries(charItems)
             .filter(i => i.items.length > 0),
     })).filter(e => e.data.length > 0);
 
+const charsDE = chars.map(c => ({
+    name: c.name,
+    data: c.data.map(d => ({
+        category: category_alias_de[d.category] ?? d.category,
+        items: d.items,
+    }))
+}))
+
 const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString());
-fs.writeFileSync("output.de.html", tplDE({ chars }));
+fs.writeFileSync("output.de.html", tplDE({ chars: charsDE }));
+
+
+const charsEN = chars.map(c => ({
+    name: c.name,
+    data: c.data.map(d => ({
+        category: category_alias_en[d.category] ?? d.category,
+        items: d.items,
+    }))
+}))
 
 const tplEN = handlebars.compile(fs.readFileSync("template.en.html").toString());
-fs.writeFileSync("output.en.html", tplEN({ chars }));
+fs.writeFileSync("output.en.html", tplEN({ chars: charsEN }));
 
 
