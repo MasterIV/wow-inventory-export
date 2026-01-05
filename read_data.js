@@ -99,7 +99,7 @@ const charsDE = chars.map(c => ({
     data: c.data.map(d => ({
         category: category_alias_de[d.category] ?? d.category,
         items: d.items,
-    }))
+    })).sort((a, b) => a.category.localeCompare(b.category))
 }))
 
 const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString());
@@ -111,7 +111,7 @@ const charsEN = chars.map(c => ({
     data: c.data.map(d => ({
         category: category_alias_en[d.category] ?? d.category,
         items: d.items,
-    }))
+    })).sort((a, b) => a.category.localeCompare(b.category))
 }))
 
 const tplEN = handlebars.compile(fs.readFileSync("template.en.html").toString());
