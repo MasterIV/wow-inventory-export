@@ -59,7 +59,7 @@ for(let p in data.global.player.data) {
             if (slot === "unknown" || !bag.slot)
                 return;
 
-            bag.slot.filter(item => item.h).forEach(item => {
+            bag.slot.filter(item => item.h && item.h.includes("Hitem")).forEach(item => {
                 const id = item.h.match(/Hitem:(\d+):/)[1];
                 const name = item.h.match(/\|h\[([^\]]+)\]\|/)[1];
 
