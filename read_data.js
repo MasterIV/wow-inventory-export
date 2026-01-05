@@ -69,7 +69,7 @@ for(let p in data.global.player.data) {
                 });
 
                 if(!charItems[p][s]) charItems[p][s] = {};
-                const amount = item.count + (charItems[p][slot][id]?.amount ?? 0);
+                const amount = item.count + (charItems[p][s][id]?.amount ?? 0);
                 charItems[p][s][id] = {id, name, amount};
             });
         })
