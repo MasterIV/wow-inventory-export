@@ -109,9 +109,8 @@ const chars = Object.entries(charItems)
             .filter(i => i.items.length > 0),
     })).filter(e => e.data.length > 0);
 
-const charsDE = chars.map((c, index) => ({
+const charsDE = chars.map(c => ({
     name: c.name,
-    index: index,
     data: c.data.map(d => ({
         id: d.category,
         category: category_alias_de[d.category] ?? d.category,
@@ -123,9 +122,8 @@ const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString())
 fs.writeFileSync("output.de.html", tplDE({ chars: charsDE }));
 
 
-const charsEN = chars.map((c, index) => ({
+const charsEN = chars.map(c => ({
     name: c.name,
-    index: index,
     data: c.data.map(d => ({
         id: d.category,
         category: category_alias_en[d.category] ?? d.category,
