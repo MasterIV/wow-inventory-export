@@ -6,6 +6,14 @@ const handlebars = require('handlebars');
 // example: E:\Battle.net\World of Warcraft\_classic_era_\WTF\Account\accountname\SavedVariables\ArkInventory.lua
 const raw = fs.readFileSync("ArkInventory.lua").toString();
 
+const categories = [];
+fs.readdirSync("categories").forEach(f => {
+    categories.push({
+        name: f.slice(0, -5),
+        ids: JSON.parse(fs.readFileSync("categories/" + f).toString()),
+    });
+})
+
 function extreact(val) {
     switch (val.type) {
         case "TableConstructorExpression":
@@ -32,14 +40,8 @@ const charItems = {};
 fs.writeFileSync("extracted.json", JSON.stringify(data, null, 2))
 
 for(let p in data.global.player.data) {
-    console.log(p);
-
     const char = data.global.player.data[p];
-    charItems[p] = {
-        items: {},
-        auction: {},
-        mail: {},
-    }
+    charItems[p] = {}
 
     for(let l in char.location) {
         let location = char.location[l]
@@ -50,12 +52,8 @@ for(let p in data.global.player.data) {
         location.bag.forEach(bag => {
             let slot = "unknown";
 
-            if ([1, 6, 7, 8, 9, 10, 13].includes(bag.type)) {
+            if ([1, 6, 7, 8, 9, 10, 13, 15].includes(bag.type)) {
                 slot = "items";
-            } else if (bag.type === 15) {
-                slot = "mail";
-            } else if (bag.type === 20) {
-                slot = "auction";
             }
 
             if (slot === "unknown" || !bag.slot)
@@ -64,8 +62,15 @@ for(let p in data.global.player.data) {
             bag.slot.filter(item => item.h).forEach(item => {
                 const id = item.h.match(/Hitem:(\d+):/)[1];
                 const name = item.h.match(/\|h\[([^\]]+)\]\|/)[1];
+
+                let s = slot;
+                categories.forEach(c => {
+                    if(id in c.ids) s = c.name;
+                });
+
+                if(!charItems[p][s]) charItems[p][s] = {};
                 const amount = item.count + (charItems[p][slot][id]?.amount ?? 0);
-                charItems[p][slot][id] = {id, name, amount}
+                charItems[p][s][id] = {id, name, amount};
             });
         })
     }
@@ -74,10 +79,10 @@ for(let p in data.global.player.data) {
 const chars = Object.entries(charItems)
     .map(e => ({
         name: e[0],
-        items: Object.values(e[1].items),
-        mail: Object.values(e[1].mail),
-        auction: Object.values(e[1].auction),
-    })).filter(e => e.items.length > 0);
+        data: Object.entries(e[1])
+            .map(i => ({category: i[0], items: Object.values(i[1])}))
+            .filter(i => i.items.length > 0),
+    })).filter(e => e.data.length > 0);
 
 const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString());
 fs.writeFileSync("output.de.html", tplDE({ chars }));

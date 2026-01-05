@@ -8,33 +8,18 @@
 </head>
 <body>
 
-
 {{#each chars}}
     <h1>{{name}}</h1>
 
-    {{#if items}}
-        <h2>Items</h2>
-        <ul>{{#each items}}
-            <li><a href="https://www.wowhead.com/classic/item={{id}}">{{name}}</a>: {{amount}}</li>
-        {{/each}}</ul>
-    {{/if}}
-
-    {{#if mail}}
-        <h2>Mail</h2>
-        <ul>{{#each mail}}
-            <li><a href="https://www.wowhead.com/classic/item={{id}}">{{name}}</a>: {{amount}}</li>
-        {{/each}}</ul>
-    {{/if}}
-
-    {{#if auction}}
-        <h2>Auction</h2>
-        <ul>{{#each auction}}
-            <li><a href="https://www.wowhead.com/classic/item={{id}}">{{name}}</a>: {{amount}}</li>
-        {{/each}}</ul>
-    {{/if}}
+    {{#each data}}
+        {{#if items}}
+            <h2>{{category}}</h2>
+            <ul>{{#each items}}
+                <li><a href="https://www.wowhead.com/classic/item={{id}}">{{name}}</a>: {{amount}}</li>
+            {{/each}}</ul>
+        {{/if}}
+    {{/each}}
 {{/each}}
-
-
 
 <script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true};</script>
 <script src="https://wow.zamimg.com/js/tooltips.js"></script>
