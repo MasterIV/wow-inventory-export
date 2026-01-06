@@ -6,121 +6,11 @@ const handlebars = require('handlebars');
 // example: E:\Battle.net\World of Warcraft\_classic_era_\WTF\Account\accountname\SavedVariables\ArkInventory.lua
 const raw = fs.readFileSync("ArkInventory.lua").toString();
 
-const category_alias_de = {
-    "bags": "Taschen",
-    "cloth": "Material: Stoff",
-    "enchanting": "Material: Verzaubern",
-    "herbs": "Material: Kräuter",
-    "jewels": "Material: Juwelen",
-    "leather": "Material: Leder",
-    "meat": "Material: Fleisch",
-    "metal": "Material: Metalle & Steine",
-    "patterns_alchemy": "Rezepte: Alchemie",
-    "patterns_cooking": "Rezepte: Kochkunst",
-    "patterns_enchanting": "Rezepte: Verzauberkunst",
-    "patterns_engineering": "Rezepte: Ingenieurskunst",
-    "patterns_jewelcrafting": "Rezepte: Juwelenschleifen",
-    "patterns_leatherworking": "Rezepte: Lederverarbeitung",
-    "patterns_smithing": "Rezepte: Schmiedekunst",
-    "patterns_tailoring": "Rezepte: Schneiderei",
-    "items": "Sonstiges",
-    "armor_cloth": "Rüstung: Stoff",
-    "armor_leather": "Rüstung: Leder",
-    "armor_mail": "Rüstung: Kette",
-    "armor_plate": "Rüstung: Platte",
-    "weapon_bows": "Waffen: Bögen",
-    "weapon_crossbows": "Waffen: Armbrüste",
-    "weapon_dagger": "Waffen: Dolche",
-    "weapon_fistweapons": "Waffen: Faustwaffen",
-    "weapon_guns": "Waffen: Schusswaffen",
-    "weapon_onehandedaxes": "Waffen: Einhandäxte",
-    "weapon_onehandedmaces": "Waffen: Einhandstreitkolben",
-    "weapon_onehandedswords": "Waffen: Einhandschwerter",
-    "weapon_other": "Waffen: Sonstiges",
-    "weapon_polearms": "Waffen: Stangenwaffen",
-    "weapon_staves": "Waffen: Stäbe",
-    "weapon_thrown": "Waffen: Wurfwaffen",
-    "weapon_twohandedaxes": "Waffen: Zweihandäxte",
-    "weapon_twohandedmaces": "Waffen: Zweihandstreitkolben",
-    "weapon_wands": "Waffen: Zauberstäbe",
-    "recipes_books": "Bücher",
-    "consumables_bandages": "Verbrauchsgegenstände: Verbände",
-    "consumables_elixirs": "Verbrauchsgegenstände: Elixire",
-    "consumables_foodanddrinks": "Verbrauchsgegenstände: Essen & Trinken",
-    "consumables_potions": "Verbrauchsgegenstände: Tränke",
-    "armor_other": "Rüstung: Sonstiges",
-    "zg_mats": "Raid: ZG",
-    "raid_aq": "Raid: AQ",
-    "gems": "Material: Edelsteine",
-    "consumables_scrolls": "Verbrauchsgegenstände: Schriftrollen",
-    "consumables_enhancementstemporary": "Verbrauchsgegenstände: Verstärkungen (temporär)",
-    "consumables_enhancementspermanent": "Verbrauchsgegenstände: Verstärkungen (permanent)",
-    "tradegoods_parts": "Handelsgüter: Teile",
-    "tradegoods_elemental": "Handelsgüter: Elementar",
-    "tradegoods_other": "Handelsgüter: Sonstiges",
-    "weapon_twohandedswords": "Waffen: Zweihandschwerter",
-}
-
-const category_alias_en = {
-    "bags": "Bags",
-    "cloth": "Material: Cloth",
-    "enchanting": "Material: Enchanting",
-    "herbs": "Material: Herbs",
-    "jewels": "Material: Jewels",
-    "leather": "Material: Leather",
-    "meat": "Material: Meat",
-    "metal": "Material: Metal & Stone",
-    "patterns_alchemy": "Recipes: Alchemy",
-    "patterns_cooking": "Recipes: Cooking",
-    "patterns_enchanting": "Recipes: Enchanting",
-    "patterns_engineering": "Recipes: Engineering",
-    "patterns_jewelcrafting": "Recipes: Jewelcrafting",
-    "patterns_leatherworking": "Recipes: Leatherworking",
-    "patterns_smithing": "Recipes: Blacksmithing",
-    "patterns_tailoring": "Recipes: Tailoring",
-    "items": "Other",
-    "armor_cloth": "Armor: Cloth",
-    "armor_leather": "Armor: Leather",
-    "armor_mail": "Armor: Mail",
-    "armor_plate": "Armor: Plate",
-    "weapon_bows": "Weapons: Bow",
-    "weapon_crossbows": "Weapons: Crossbow",
-    "weapon_dagger": "Weapons: Dagger",
-    "weapon_fistweapons": "Weapons: Fistweapons",
-    "weapon_guns": "Weapons: Guns",
-    "weapon_onehandedaxes": "Weapons: One-handed Axes",
-    "weapon_onehandedmaces": "Weapons: One-handed Maces",
-    "weapon_onehandedswords": "Weapons: One-handed Swords",
-    "weapon_other": "Weapons: Other",
-    "weapon_polearms": "Weapons: Polearms",
-    "weapon_staves": "Weapons: Staves",
-    "weapon_thrown": "Weapons: Thrown",
-    "weapon_twohandedaxes": "Weapons: Two-handed Axes",
-    "weapon_twohandedmaces": "Weapons: Two-handed Maces",
-    "weapon_wands": "Weapons: Wands",
-    "recipes_books": "Books",
-    "consumables_bandages": "Consumables: Bandages",
-    "consumables_elixirs": "Consumables: Elixirs",
-    "consumables_foodanddrinks": "Consumables: Food & Drinks",
-    "consumables_potions": "Consumables: Potions",
-    "armor_other": "Armor: Other",
-    "zg_mats": "Raid: ZG",
-    "raid_aq": "Raid: AQ",
-    "gems": "Material: Gems",
-    "consumables_scrolls": "Consumables: Scrolls",
-    "consumables_enhancementstemporary": "Consumables: Enhancements (temporary)",
-    "consumables_enhancementspermanent": "Consumables: Enhancements (permanent)",
-    "tradegoods_parts": "Tradegoods: Parts",
-    "tradegoods_elemental": "Tradegoods: Elemental",
-    "tradegoods_other": "Tradegoods: Other",
-    "weapon_twohandedswords": "Weapons: Two-handed Swords",
-}
-
 const categories = [];
-fs.readdirSync("categories").forEach(f => {
+fs.readdirSync("./src/data/categories").forEach(f => {
     categories.push({
         name: f.slice(0, -5),
-        ids: JSON.parse(fs.readFileSync("categories/" + f).toString()),
+        ids: require("./src/data/categories/" + f),
     });
 })
 
@@ -194,6 +84,9 @@ const chars = Object.entries(charItems)
             .filter(i => i.items.length > 0),
     })).filter(e => e.data.length > 0);
 
+
+const category_alias_de = require("./src/data/de/categories.json");
+const stringsDE = require("./src/data/de/strings.json");
 const charsDE = chars.map(c => ({
     name: c.name,
     data: c.data.map(d => ({
@@ -203,10 +96,8 @@ const charsDE = chars.map(c => ({
     })).sort((a, b) => a.category.localeCompare(b.category))
 }))
 
-const tplDE = handlebars.compile(fs.readFileSync("template.de.html").toString());
-fs.writeFileSync("output.de.html", tplDE({ chars: charsDE }));
-
-
+const category_alias_en = require("./src/data/en/categories.json");
+const stringsEN = require("./src/data/en/strings.json");
 const charsEN = chars.map(c => ({
     name: c.name,
     data: c.data.map(d => ({
@@ -216,7 +107,6 @@ const charsEN = chars.map(c => ({
     })).sort((a, b) => a.category.localeCompare(b.category))
 }))
 
-const tplEN = handlebars.compile(fs.readFileSync("template.en.html").toString());
-fs.writeFileSync("output.en.html", tplEN({ chars: charsEN }));
-
-
+const tpl = handlebars.compile(fs.readFileSync("template.html").toString());
+fs.writeFileSync("public/output.de.html", tpl({ chars: charsDE, strings: stringsDE }));
+fs.writeFileSync("public/output.en.html", tpl({ chars: charsEN, strings: stringsEN }));

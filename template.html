@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Arbeitskollegen - Gildenbank</title>
+    <title>{{@root.strings.title}}</title>
 
     <style>
         td a {
@@ -24,7 +24,7 @@
             <button type="button" class="btn btn-primary" onclick="expandAll()">Expand All</button>
         </div>
 
-        <h1>Arbeitskollegen - Gildenbank</h1>
+        <h1>{{@root.strings.title}}</h1>
 
         {{#each chars}}
         <h4>{{name}}</h4>
@@ -45,15 +45,15 @@
                         <table class="table table-striped align-middle">
                             <thead>
                                 <tr>
-                                    <th width="75%">Gegenstand</th>
-                                    <th width="25%">Verfügbar</th>
+                                    <th width="75%">{{@root.strings.item}}</th>
+                                    <th width="25%">{{@root.strings.available}}</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 {{#each items}}
                                 <tr>
-                                    <td><a href="https://www.wowhead.com/classic/de/item={{id}}">{{name}}</a></td>
+                                    <td><a href="{{@root.strings.url}}{{id}}">{{name}}</a></td>
                                     <td>{{amount}}</td>
                                 </tr>
                                 {{/each}}
