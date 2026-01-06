@@ -8,17 +8,21 @@ const { token, channelName, channelGuild } = require('./config.json')
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 let channel;
 
-client.once(Events.ClientReady, (readyClient) => {
+client.once(Events.ClientReady, () => {
     channel = client.channels.cache.find(c => c.name === channelName && c.guild.name === channelGuild)
 });
 
+app.use(express.json())
 app.use(express.static('public'))
 
-app.get('/request', (req, res) => {
-    res.send()
-})
+app.post('/request', (req, res) => {
+    const {name, items} = req.body;
+    channel.send(
+        `Guildmember **${name}** is requesting the following items:\n`
+        +items.map(i => ` - ${i.name}: ${i.amount}`).join('\n'));
+});
 
 client.login(token);
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`app listening on port ${port}`)
 })
