@@ -54,6 +54,11 @@ const category_alias_de = {
     "gems": "Material: Edelsteine",
     "consumables_scrolls": "Verbrauchsgegenstände: Schriftrollen",
     "consumables_enhancementstemporary": "Verbrauchsgegenstände: Verstärkungen (temporär)",
+    "consumables_enhancementspermanent": "Verbrauchsgegenstände: Verstärkungen (permanent)",
+    "tradegoods_parts": "Handelsgüter: Teile",
+    "tradegoods_elemental": "Handelsgüter: Elementar",
+    "tradegoods_other": "Handelsgüter: Sonstiges",
+    "weapon_twohandedswords": "Waffen: Zweihandschwerter",
 }
 
 const category_alias_en = {
@@ -104,6 +109,11 @@ const category_alias_en = {
     "gems": "Material: Gems",
     "consumables_scrolls": "Consumables: Scrolls",
     "consumables_enhancementstemporary": "Consumables: Enhancements (temporary)",
+    "consumables_enhancementspermanent": "Consumables: Enhancements (permanent)",
+    "tradegoods_parts": "Tradegoods: Parts",
+    "tradegoods_elemental": "Tradegoods: Elemental",
+    "tradegoods_other": "Tradegoods: Other",
+    "weapon_twohandedswords": "Weapons: Two-handed Swords",
 }
 
 const categories = [];
