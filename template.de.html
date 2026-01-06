@@ -2,18 +2,35 @@
 <html>
 <head>
     <title>Arbeitskollegen - Gildenbank</title>
+
+    <style>
+        td a {
+            text-decoration: none;
+        }
+
+        td a > span {
+            font-size: 20px;
+        }
+
+        .iconmedium {
+            margin-right: 6px;
+        }
+    </style>
+
 </head>
 <body data-bs-theme="dark">
-<div class="container">
-    <div style="float: right; margin-top: 10px">
-        <button type="button" class="btn btn-primary" onclick="expandAll()">Expand All</button>
-    </div>
+    <div class="container">
+        <div style="float: right; margin-top: 10px">
+            <button type="button" class="btn btn-primary" onclick="expandAll()">Expand All</button>
+        </div>
 
-    {{#each chars}}
+        <h1>Arbeitskollegen - Gildenbank</h1>
+
+        {{#each chars}}
         <h4>{{name}}</h4>
 
-        <div class="accordion" id="accordion{{@index}}">
-        {{#each data}}
+        <div class="accordion">
+            {{#each data}}
             {{#if items}}
 
             <div class="accordion-item">
@@ -23,23 +40,23 @@
                     </button>
                 </h2>
 
-                <div id="collapse{{@../index}}-{{id}}" class="accordion-collapse collapse" data-bs-parent="#accordion{{@../index}}">
+                <div id="collapse{{@../index}}-{{id}}" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <table class="table table-striped align-middle">
-                            <thead><tr>
-                                <th width="60%">Gegenstand</th>
-                                <th width="20%">Verfügbar</th>
-                                <th width="20%">Anfragen</th>
-                            </tr></thead>
+                            <thead>
+                                <tr>
+                                    <th width="75%">Gegenstand</th>
+                                    <th width="25%">Verfügbar</th>
+                                </tr>
+                            </thead>
 
                             <tbody>
-                            {{#each items}}
+                                {{#each items}}
                                 <tr>
                                     <td><a href="https://www.wowhead.com/classic/de/item={{id}}">{{name}}</a></td>
                                     <td>{{amount}}</td>
-                                    <td><input disabled type="number" class="form-control"></td>
                                 </tr>
-                            {{/each}}
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
@@ -47,14 +64,14 @@
             </div>
 
             {{/if}}
-        {{/each}}
+            {{/each}}
         </div>
 
         <br />
-    {{/each}}
-</div>
+        {{/each}}
+    </div>
 
-<script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true, iconSize: 'small'};</script>
+<script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true, iconSize: 'medium'};</script>
 <script src="https://wow.zamimg.com/js/tooltips.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">

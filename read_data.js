@@ -24,6 +24,10 @@ const category_alias_de = {
     "patterns_smithing": "Rezepte: Schmiedekunst",
     "patterns_tailoring": "Rezepte: Schneiderei",
     "items": "Sonstiges",
+    "armor_cloth": "Rüstung: Stoff",
+    "armor_leather": "Rüstung: Leder",
+    "armor_mail": "Rüstung: Kette",
+    "armor_plate": "Rüstung: Platte",
 }
 
 const category_alias_en = {
@@ -44,6 +48,10 @@ const category_alias_en = {
     "patterns_smithing": "Recipes: Blacksmithing",
     "patterns_tailoring": "Recipes: Tailoring",
     "items": "Other",
+    "armor_cloth": "Armor: Cloth",
+    "armor_leather": "Armor: Leather",
+    "armor_mail": "Armor: Mail",
+    "armor_plate": "Armor: Plate",
 }
 
 const categories = [];
