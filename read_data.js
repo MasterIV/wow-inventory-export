@@ -27,8 +27,23 @@ const category_alias_de = {
 }
 
 const category_alias_en = {
-    "herbs": "Herbs",
-    "cloth": "Cloth",
+    "bags": "Bags",
+    "cloth": "Material: Cloth",
+    "enchanting": "Material: Enchanting",
+    "herbs": "Material: Herbs",
+    "jewels": "Material: Jewels",
+    "leather": "Material: Leather",
+    "meat": "Material: Meat",
+    "metal": "Material: Metal & Stone",
+    "patterns_alchemy": "Recipes: Alchemy",
+    "patterns_cooking": "Recipes: Cooking",
+    "patterns_enchanting": "Recipes: Enchanting",
+    "patterns_engineering": "Recipes: Engineering",
+    "patterns_jewelcrafting": "Recipes: Jewelcrafting",
+    "patterns_leatherworking": "Recipes: Leatherworking",
+    "patterns_smithing": "Recipes: Blacksmithing",
+    "patterns_tailoring": "Recipes: Tailoring",
+    "items": "Other",
 }
 
 const categories = [];
