@@ -17,9 +17,17 @@
         }
 
         #requestbutton {
+            z-index: 10;
             position: fixed;
             bottom: 40px;
             right: 40px;
+        }
+
+        #toast {
+            z-index: 10;
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
         }
 
         #requestbutton > div {
@@ -28,6 +36,8 @@
             border-radius: 6px;
             padding: 10px 20px;
         }
+
+
     </style>
 
 </head>
@@ -99,7 +109,16 @@
         </script>
     </div>
 
-    <div id="toast"></div>
+    <div id="toast" class="toast-container">
+
+        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">placeholder</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+    </div>
 
 <script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true, iconSize: 'medium'};</script>
 <script src="https://wow.zamimg.com/js/tooltips.js"></script>
@@ -129,13 +148,19 @@
     }
 
     function toast(msg, type = "primary") {
-        document.getElementById("toast").innerHTML = `
+        console.log(type, msg);
+        const container = document.getElementById("toast");
+
+        container.innerHTML = `
             <div class="toast align-items-center text-bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
               <div class="d-flex">
                 <div class="toast-body">${msg}</div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
               </div>
             </div>`;
+
+        const t = new bootstrap.Toast(container.getElementsByClassName('toast')[0]);
+        t.show();
     }
 
     function submitRequest() {
@@ -156,7 +181,7 @@
         }).then(() => {
             toast("Anfrage erfolgreich.", "success");
         }).catch(() => {
-            toast("Anfrage fehlgeschlagen.", "success");
+            toast("Anfrage fehlgeschlagen.", "danger");
         });
     }
 </script>
