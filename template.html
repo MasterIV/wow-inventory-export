@@ -21,6 +21,13 @@
             bottom: 40px;
             right: 40px;
         }
+
+        #requestbutton > div {
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid #AAA;
+            border-radius: 6px;
+            padding: 10px 20px;
+        }
     </style>
 
 </head>
@@ -80,8 +87,19 @@
     </div>
 
     <div id="requestbutton">
-        <button onclick="submitRequest(this);" class="btn btn-danger btn-large">{{@root.strings.request}}</button>
+        <script>
+            const request_limit = 600000; // 10 minutes
+            const last = new Date(localStorage.getItem("last_request"));
+            const elapsed = new Date() - last;
+
+            if(last.getTime() && elapsed < request_limit)
+                document.write(`<div>{{@root.strings.next_request}}<br />${((request_limit - elapsed) / 1000) | 0} {{@root.strings.seconds}}</div>`);
+            else
+                document.write(`<button onclick="submitRequest();" class="btn btn-danger btn-large">{{@root.strings.request}}</button>`);
+        </script>
     </div>
+
+    <div id="toast"></div>
 
 <script>const whTooltips = {colorLinks: true, iconizeLinks: true, renameLinks: true, iconSize: 'medium'};</script>
 <script src="https://wow.zamimg.com/js/tooltips.js"></script>
@@ -110,16 +128,35 @@
         request[id] = {id, name, amount: amount | 0};
     }
 
-    function submitRequest(btn) {
+    function toast(msg, type = "primary") {
+        document.getElementById("toast").innerHTML = `
+            <div class="toast align-items-center text-bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">${msg}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>`;
+    }
+
+    function submitRequest() {
         const name = window.prompt("Character Name");
         const items = Object.values(request).filter(r => r.amount);
-        if(!name || !items.length) return;
+        const last = new Date(localStorage.getItem("last_request"));
 
-        btn.disabled = true;
+        if(!name || !items.length) return;
+        if(last.getTime() && (new Date() - last) < request_limit) return;
+
+        localStorage.setItem("last_request", new Date());
+        document.getElementById("requestbutton").innerHTML = "<div>{{@root.strings.next_request}}<br />10 {{@root.strings.minutes}}</div>";
+
         fetch("/request", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name, items}),
+        }).then(() => {
+            toast("Anfrage erfolgreich.", "success");
+        }).catch(() => {
+            toast("Anfrage fehlgeschlagen.", "success");
         });
     }
 </script>

@@ -3,5 +3,8 @@
   "item": "Gegenstand",
   "available": "Verfügbar",
   "request": "Anfragen",
-  "title": "Arbeitskollegen - Gildenbank"
+  "title": "Arbeitskollegen - Gildenbank",
+  "next_request": "Nächste Anfrage in:",
+  "seconds": "Sekunden",
+  "minutes": "Minuten"
 }
