@@ -14,6 +14,7 @@ client.once(Events.ClientReady, () => {
     channel = client.channels.cache.find(c => c.name === channelName && c.guild.name === channelGuild)
 });
 
+app.enable('trust proxy')
 app.use(express.json())
 app.use(express.static('public'))
 
