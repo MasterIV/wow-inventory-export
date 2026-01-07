@@ -19,6 +19,7 @@ app.use(express.static('public'))
 
 app.post('/request', (req, res) => {
     const {name, items} = req.body;
+    console.log("request by", name, req.ip);
     channel.send(
         `Guildmember **${name}** is requesting the following items:\n`
         +items.map(i => ` - ${i.name}: ${i.amount}`).join('\n'));
