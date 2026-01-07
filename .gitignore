@@ -4,3 +4,4 @@ node_modules
 input
 .vs
 config.json
+.env

@@ -3,7 +3,9 @@ const app = express()
 const port = 3000
 
 const { Client, GatewayIntentBits, Events} = require('discord.js')
-const { token, channelName, channelGuild } = require('./config.json')
+const token = process.env.DISCORD_TOKEN;
+const channelName = process.env.CHANNEL_NAME;
+const channelGuild = process.env.CHANNEL_GUILD;
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 let channel;

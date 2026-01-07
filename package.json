@@ -5,7 +5,8 @@
   "main": "read_data.js",
   "scripts": {
     "start": "node server.js",
-    "build": "node read_data.js"
+    "build": "node read_data.js",
+    "dev": "node --env-file=.env server.js"
   },
   "author": "",
   "license": "ISC",
