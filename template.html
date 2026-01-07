@@ -105,7 +105,7 @@
             if(last.getTime() && elapsed < request_limit)
                 document.write(`<div>{{@root.strings.next_request}}<br />${((request_limit - elapsed) / 1000) | 0} {{@root.strings.seconds}}</div>`);
             else
-                document.write(`<button onclick="submitRequest();" class="btn btn-danger btn-large">{{@root.strings.request}}</button>`);
+                document.write(`<button onclick="submitRequest();" class="btn btn-danger btn-lg">{{@root.strings.request}}</button>`);
         </script>
     </div>
 
