@@ -46,6 +46,8 @@ for(let p in data.global.player.data) {
     for(let l in char.location) {
         let location = char.location[l]
 
+        if(location == null)
+            continue;
         if(Array.isArray(location))
             location = location[1];
 

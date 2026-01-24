@@ -79,7 +79,7 @@
                                 <tr>
                                     <td><a href="{{@root.strings.url}}{{id}}">{{name}}</a></td>
                                     <td>{{amount}}</td>
-                                    <td><input min="0" max="{{amount}}" type="number" class="form-control" onchange="updateRequest('{{id}}', '{{name}}', this.value)" /></td>
+                                    <td><input min="0" max="{{amount}}" type="number" class="form-control" onchange="updateRequest('{{id}}', `{{name}}`, this.value)" /></td>
                                 </tr>
                                 {{/each}}
                             </tbody>
